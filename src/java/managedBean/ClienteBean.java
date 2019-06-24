@@ -20,7 +20,6 @@ import org.hibernate.HibernateException;
  * @author Computer
  */
 @ManagedBean
-//@RequestScoped
 @ViewScoped
 public class ClienteBean implements Serializable {
 
