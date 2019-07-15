@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24-jun-2019 9:48:27 by Hibernate Tools 4.3.1 -->
+<!-- Generated 14-jul-2019 23:18:37 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entidades.Mascotaporcliente" table="mascotaporcliente" catalog="mascota" optimistic-lock="version">
         <composite-id name="id" class="entidades.MascotaporclienteId">

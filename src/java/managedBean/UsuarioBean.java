@@ -5,13 +5,13 @@
  */
 package managedBean;
 
-import dao.MascotaDao;
-import entidades.Mascota;
+import dao.PersonalDao;
+import dao.UsuarioDao;
+import entidades.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
@@ -20,35 +20,40 @@ import org.hibernate.HibernateException;
  *
  * @author Computer
  */
+
 @ManagedBean
-//@RequestScoped
 @ViewScoped
-public class MascotaBean implements Serializable {
-
-    /**
-     * SE COMUNICA CON EL DAO
-     */
-    private Mascota mascota;
-    private boolean banderaSelect = false;
-
-    public MascotaBean() {
-        this.mascota = new Mascota();
-
+public class UsuarioBean implements Serializable{
+    private ArrayList listarUsuarios;
+    private Usuario usuario;
+     private boolean banderaSelect = false;
+    
+    
+    public UsuarioBean(){
+        this.usuario= new Usuario();
+        listarUsuarios= new ArrayList();
+        usuario = new Usuario();
+        listarUsuarios();
     }
 
-    public Mascota getMascota() {
-        return mascota;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setMascota(Mascota mascota) {
-        this.mascota = mascota;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
-
-    public String guardarMascota() {
+    
+    public void listarUsuarios(){
+        PersonalDao personalDao= new PersonalDao();
+        listarUsuarios= personalDao.listarPersonal();
+    }
+    
+    public String guardarUsuario() {
         try {
 
-            MascotaDao mascotaDao = new MascotaDao();
-            boolean respuesta = mascotaDao.guardarMascota(mascota);
+            UsuarioDao usuarioDao = new UsuarioDao();
+            boolean respuesta = usuarioDao.guardarUsuario(usuario);
             if (respuesta) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se regidtro correctamente"));
             } else {
@@ -58,13 +63,13 @@ public class MascotaBean implements Serializable {
             ///transation.rollback();  -- regresa a la anterior
             System.out.println("Error::: " + e);
         }
-        return "/RMascota";
+        return "/RUsuario";
     }
 
-    public String actualizarMascota() {
+    public String actualizarUsuario() {
         try {
-            MascotaDao mascotaDao = new MascotaDao();
-            boolean respuesta = mascotaDao.actualizarMascota(mascota);
+              UsuarioDao usuarioDao = new UsuarioDao();
+            boolean respuesta = usuarioDao.actualizarUsuario(usuario);
             if (respuesta) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se actualizo correctamente"));
             } else {
@@ -74,42 +79,49 @@ public class MascotaBean implements Serializable {
             ///transation.rollback();  -- regresa a la anterior
             System.out.println("Error::: " + e);
         }
-        return "/RMascota";
+        return "/RUsuario";
 
     }
 
-    public ArrayList<Mascota> listarMascotas() {
-        ArrayList<Mascota> lista = new ArrayList<>();
-        MascotaDao mascotaDao = new MascotaDao();
-        lista = mascotaDao.listarMascotas();
+    public ArrayList<Usuario> listarUsuario() {
+        ArrayList<Usuario> lista = new ArrayList<>();
+         UsuarioDao usuarioDao = new UsuarioDao();
+        lista = usuarioDao.listarUsuario();
         return lista;
     }
 
     public String eliminar() {
-        MascotaDao mascotaDao = new MascotaDao();
-        boolean respuesta = mascotaDao.eliminarMascota(mascota);
+        UsuarioDao usuarioDao = new UsuarioDao();
+        boolean respuesta = usuarioDao.eliminarUsuario(usuario);
         if (respuesta) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se elimino correctamente"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puedo eliminar"));
         }
-        return "/RMascota";
+        return "/RUsuario";
     }
-
-    public String limpiar() {
-        return "/RMascota";
-    }
-
-    public void selectBandera() {
+     public void selectBandera() {
         banderaSelect = true;
     }
 
-    public boolean isBanderaSelect() {
+    public ArrayList getListarUsuarios() {
+        return listarUsuarios;
+    }
+
+    public void setListarUsuarios(ArrayList listarUsuarios) {
+        this.listarUsuarios = listarUsuarios;
+    }
+    
+      public boolean isBanderaSelect() {
         return banderaSelect;
     }
 
     public void setBanderaSelect(boolean banderaSelect) {
         this.banderaSelect = banderaSelect;
     }
-
+    
+      public String limpiar() {
+        return "/RMascota";
+    }
+    
 }

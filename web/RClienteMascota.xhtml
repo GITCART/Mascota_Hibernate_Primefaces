@@ -1,4 +1,3 @@
-
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -10,36 +9,38 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-         <ui:composition template="./TemplateVeterinaria.xhtml">
+        <ui:composition template="./TemplateVeterinaria.xhtml">
 
 
             <ui:define name="content">
-                 <p:growl id="msj" autoUpdate="true"/>
+                <p:growl id="msj" autoUpdate="true"/>
                 <h:form id="from">
                     <p:panel>
                         <f:facet name="header">
                             <column>
-                                <p:outputLabel value="MANTENIMIENTO CLIENTE"/>  
+                                <p:outputLabel value="MANTENIMIENTO DE ASIGNACION CLIENTE A MASCOTA"/>  
                             </column>
                         </f:facet>
                         <h:panelGrid columns="2">
+                            <p:outputLabel value="Cliente"/>
+                            <p:selectOneMenu value="#{mascotaporClienteBean.idCliente}">
+                                <f:selectItem itemLabel="--seleccione--"/>
+                                <f:selectItems value="#{mascotaporClienteBean.listaClientes}" var="cliente" itemLabel="#{cliente.nombreCliente}" itemValue="#{cliente.codigoCliente}"/>
+                            </p:selectOneMenu>
 
-                            <p:outputLabel value="Codigo"/>
-                            <p:inputText value="#{clienteBean.cliente.codigoCliente}" required="true"/>
-                            <p:outputLabel value="Nombre Cliente"/>
-                            <p:inputText value="#{clienteBean.cliente.nombreCliente}"/>
-                            <p:outputLabel value="Apellido Cliente"/>
-                            <p:inputText value="#{clienteBean.cliente.apellidoCliente}"/>
-                            <p:outputLabel value="Fecha Nac:"/>
-                            <p:calendar value="#{clienteBean.cliente.fechaNac}"/>
-                            <p:outputLabel value="Email"/>
-                            <p:inputText value="#{clienteBean.cliente.email}"/>
-                            <p:outputLabel value="Direccion"/>
-                            <p:inputText value="#{clienteBean.cliente.direccion}"/>
-                            <p:outputLabel value="Telefono"/>
-                            <p:inputText value="#{clienteBean.cliente.telefono}"/>
+                            <p:outputLabel value="Mascota"/>
+                            <p:selectOneMenu value="#{mascotaporClienteBean.idMacota}">
+                                <f:selectItem itemLabel="--seleccione--"/>
+                                <f:selectItems value="#{mascotaporClienteBean.listaMascotas}" var="mascota" itemLabel="#{mascota.nombreMascota}" itemValue="#{mascota.idMascota}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Estado"/>
+                            <p:selectOneMenu value="#{mascotaporClienteBean.mascotaporcliente.estado}">
+                                <f:selectItem itemLabel="--seleccione--"/>
+                                <f:selectItem itemLabel="Activo" itemValue="A"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                            </p:selectOneMenu>
                         </h:panelGrid>
-                        <p:commandButton value="Guardar" action="#{clienteBean.guardarCleinte()}" update=":data:datatable,:from"/>
+                        <p:commandButton value="Guardar" action="#{mascotaporClienteBean.guardarMascotaCliente()}" update=":data:datatable,:from"/>
                         <p:commandButton value="Actualizar" action="#{clienteBean.actualizarCliente()}" update=":data:datatable,:from"/>
                     </p:panel>
                 </h:form>
