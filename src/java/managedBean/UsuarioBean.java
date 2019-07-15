@@ -7,6 +7,7 @@ package managedBean;
 
 import dao.PersonalDao;
 import dao.UsuarioDao;
+import entidades.Personal;
 import entidades.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,20 +21,22 @@ import org.hibernate.HibernateException;
  *
  * @author Computer
  */
-
 @ManagedBean
 @ViewScoped
-public class UsuarioBean implements Serializable{
-    private ArrayList listarUsuarios;
+public class UsuarioBean implements Serializable {
+
+    private ArrayList listarPersonal;
     private Usuario usuario;
-     private boolean banderaSelect = false;
-    
-    
-    public UsuarioBean(){
-        this.usuario= new Usuario();
-        listarUsuarios= new ArrayList();
-        usuario = new Usuario();
-        listarUsuarios();
+    private Personal personal;
+    private int idPersona;
+
+    private boolean banderaSelect = false;
+
+    public UsuarioBean() {
+        this.usuario = new Usuario();
+        listarPersonal = new ArrayList();
+        personal = new Personal();
+        listarPersonal();
     }
 
     public Usuario getUsuario() {
@@ -43,16 +46,18 @@ public class UsuarioBean implements Serializable{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    public void listarUsuarios(){
-        PersonalDao personalDao= new PersonalDao();
-        listarUsuarios= personalDao.listarPersonal();
+
+    public void listarPersonal() {
+        PersonalDao personalDao = new PersonalDao();
+        listarPersonal = personalDao.listarPersonal();
     }
-    
+
     public String guardarUsuario() {
         try {
 
             UsuarioDao usuarioDao = new UsuarioDao();
+            personal.setIdPersonal(idPersona);
+            usuario.setPersonal(personal);
             boolean respuesta = usuarioDao.guardarUsuario(usuario);
             if (respuesta) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se regidtro correctamente"));
@@ -68,7 +73,7 @@ public class UsuarioBean implements Serializable{
 
     public String actualizarUsuario() {
         try {
-              UsuarioDao usuarioDao = new UsuarioDao();
+            UsuarioDao usuarioDao = new UsuarioDao();
             boolean respuesta = usuarioDao.actualizarUsuario(usuario);
             if (respuesta) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se actualizo correctamente"));
@@ -85,7 +90,7 @@ public class UsuarioBean implements Serializable{
 
     public ArrayList<Usuario> listarUsuario() {
         ArrayList<Usuario> lista = new ArrayList<>();
-         UsuarioDao usuarioDao = new UsuarioDao();
+        UsuarioDao usuarioDao = new UsuarioDao();
         lista = usuarioDao.listarUsuario();
         return lista;
     }
@@ -100,28 +105,45 @@ public class UsuarioBean implements Serializable{
         }
         return "/RUsuario";
     }
-     public void selectBandera() {
+
+    public Personal getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+
+    public ArrayList getListarPersonal() {
+        return listarPersonal;
+    }
+
+    public void setListarPersonal(ArrayList listarPersonal) {
+        this.listarPersonal = listarPersonal;
+    }
+
+    public void selectBandera() {
         banderaSelect = true;
     }
 
-    public ArrayList getListarUsuarios() {
-        return listarUsuarios;
-    }
-
-    public void setListarUsuarios(ArrayList listarUsuarios) {
-        this.listarUsuarios = listarUsuarios;
-    }
-    
-      public boolean isBanderaSelect() {
+    public boolean isBanderaSelect() {
         return banderaSelect;
     }
 
     public void setBanderaSelect(boolean banderaSelect) {
         this.banderaSelect = banderaSelect;
     }
-    
-      public String limpiar() {
+
+    public String limpiar() {
         return "/RMascota";
     }
-    
+
+    public int getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
+    }
+
 }

@@ -45,7 +45,7 @@ public class UsuarioDao implements IUsuario {
         ArrayList<Usuario> lista = new ArrayList<>();
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "FROM Cliente";
+            String hql = "FROM Usuario";
             Query query = session.createQuery(hql);
             lista = (ArrayList<Usuario>) query.list();
         } catch (Exception e) {

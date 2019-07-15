@@ -41,9 +41,9 @@
                                 <f:selectItem itemLabel="Inactivo" itemValue="I"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Personal"/>
-                            <p:selectOneMenu value="#{usuarioBean.usuario.personal}">
+                            <p:selectOneMenu value="#{usuarioBean.idPersona}">
                                 <f:selectItem itemLabel="--seleccione--"/>
-                                <f:selectItems value="#{usuarioBean.listarUsuarios()}" var="persona" itemLabel="#{persona.nombre}" itemValue="#{persona.idPersonal}"/>
+                                <f:selectItems value="#{usuarioBean.listarPersonal}" var="persona" itemLabel="#{persona.nombre}" itemValue="#{persona.idPersonal}"/>
                             </p:selectOneMenu>
                         </h:panelGrid>
                         <p:commandButton rendered="#{!usuarioBean.banderaSelect}" value="Guardar" action="#{usuarioBean.guardarUsuario()}" update=":data:datatable,:from"/>
@@ -55,7 +55,7 @@
                 <p:panel>
                     <h:form id="data">
                         <p:dataTable rowKey="#{usuario.idusuario}" selection="#{usuarioBean.usuario}" selectionMode="single" 
-                                     id="datatable" var="mascota" value="#{usuarioBean.listarUsuario()}">
+                                     id="datatable" var="usuario" value="#{usuarioBean.listarUsuario()}">
                             <p:ajax update=":from" event="rowSelect" listener="#{usuarioBean.selectBandera()}"/>
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{usuario.idusuario}"/>
