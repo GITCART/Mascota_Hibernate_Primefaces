@@ -31,15 +31,17 @@
                             <p:outputLabel value="Raza"/>
                             <p:inputText value="#{mascotaBean.mascota.raza}"/>
                         </h:panelGrid>
-                        <p:commandButton value="Guardar" action="#{mascotaBean.guardarMascota()}" update=":data:datatable,:from"/>
-                        <p:commandButton value="Actualizar" action="#{mascotaBean.actualizarMascota()}" update=":data:datatable,:from"/>
+                        <p:commandButton rendered="#{!personalBean.banderaSelect}" value="Guardar" action="#{mascotaBean.guardarMascota()}" update=":data:datatable,:from"/>
+                        <p:commandButton rendered="#{personalBean.banderaSelect}" value="Actualizar" action="#{mascotaBean.actualizarMascota()}" update=":data:datatable,:from"/>
+                        <p:commandButton  value="Nuevo" action="#{mascotaBean.limpiar()}" update=":data:datatable,:from"/>
+
                     </p:panel>
                 </h:form>
                 <p:panel>
                     <h:form id="data">
                         <p:dataTable rowKey="#{mascota.idMascota}" selection="#{mascotaBean.mascota}" selectionMode="single" 
                                      id="datatable" var="mascota" value="#{mascotaBean.listarMascotas()}">
-                            <p:ajax update=":from" event="rowSelect" />
+                            <p:ajax update=":from" event="rowSelect" listener="#{personalBean.selectBandera()}"/>
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{mascota.idMascota}"/>
                             </p:column>

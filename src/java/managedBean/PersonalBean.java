@@ -25,7 +25,8 @@ import org.hibernate.HibernateException;
 public class PersonalBean implements Serializable{
     
     private Personal personal;
-
+    private boolean banderaSelect=false;
+   
     public PersonalBean() {
         this.personal = new Personal();
     }
@@ -33,7 +34,7 @@ public class PersonalBean implements Serializable{
     public Personal getPersonal() {
         return personal;
     }
-
+    
     public void setPersonal(Personal personal) {
         this.personal = personal;
     }
@@ -89,4 +90,21 @@ public class PersonalBean implements Serializable{
         }
         return "/RPersonal";
     }
+     public String limpiar() {
+        return "/RPersonal";
+    }
+    public void selectBandera(){
+        banderaSelect=true;
+    }
+
+    public boolean isBanderaSelect() {
+        return banderaSelect;
+    }
+
+    public void setBanderaSelect(boolean banderaSelect) {
+        this.banderaSelect = banderaSelect;
+    }
+    
+    
 }
+ 
