@@ -4,7 +4,7 @@ package entidades;
 
 
 /**
- * Usuario generated 
+ * Usuario generated usuario
  */
 public class Usuario  implements java.io.Serializable {
 
